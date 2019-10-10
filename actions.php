@@ -1,13 +1,11 @@
 <?php
 
-/**
- * Implements cockpit.asset.save event.
- */
-$app->on('cockpit.asset.save', function(&$asset) {  
-  $file = $this->path("#uploads:{$asset['path']}");
-  $mime = $asset['mime'] ?? mime_content_type($file);
 
-  $optimizerChain = \Spatie\ImageOptimizer\OptimizerChainFactory::create();
-  $optimizerChain->optimize($file);
+/**
+ * Implements cockpit.asset.upload event.
+ */
+$app->on('cockpit.asset.upload', function(&$asset, &$_meta, &$opts) {
+  $file = $this->path("#tmp:") . '/' . $asset['title'];
+  \Spatie\ImageOptimizer\OptimizerChainFactory::create()->optimize($file);
   $asset['size'] = filesize($file);
 });
