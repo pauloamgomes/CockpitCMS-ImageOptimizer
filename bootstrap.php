@@ -1,4 +1,14 @@
 <?php
+/**
+ * Cockpit image optimizer addon
+ *
+ * @author  Paulo Gomes
+ * @package CockpitCMS-ImageOptimizer
+ * @license MIT
+ *
+ * @source  https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer
+ * @see     { README.md } for usage info.
+ */
 
 require __DIR__ . '/vendor/autoload.php';
 
