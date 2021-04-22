@@ -22,15 +22,20 @@ CLI::writeln("Optimizing {$assets['total']} assets! Please wait...");
 CLI::writeln("");
 
 foreach ($assets['assets'] as $asset) {
-  $file = $app->path("#uploads:{$asset['path']}");
-  \Spatie\ImageOptimizer\OptimizerChainFactory::create()->optimize($file);
-  $original_size = $app->helper('utils')->formatSize($asset['size']);
-  $asset['size'] = filesize($file);
-  $new_size = $app->helper('utils')->formatSize($asset['size']);
-  $app->storage->save('cockpit/assets', $asset);
-  $app->filestorage->update("assets://{$asset['path']}", file_get_contents($file), ['mimetype' => $asset['mime']]);
-  CLI::writeln("{$asset['path']} optimized! From {$original_size} to {$new_size}");
-  $count++;
+  try {
+    $file = $app->path("#uploads:{$asset['path']}");
+    \Spatie\ImageOptimizer\OptimizerChainFactory::create()->optimize($file);
+    $original_size = $app->helper('utils')->formatSize($asset['size']);
+    $asset['size'] = filesize($file);
+    $new_size = $app->helper('utils')->formatSize($asset['size']);
+    $app->storage->save('cockpit/assets', $asset);
+    $app->filestorage->update("assets://{$asset['path']}", file_get_contents($file), ['mimetype' => $asset['mime']]);
+    CLI::writeln("{$asset['path']} optimized! From {$original_size} to {$new_size}");
+    $count++;
+  }
+  catch (Exception $e) {
+    CLI::writeln("Caught exception: {$e->getMessage()}");
+  }
 }
 
 $seconds = round(microtime(TRUE) - $start, 2);
