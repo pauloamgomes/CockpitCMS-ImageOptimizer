@@ -1,10 +1,10 @@
 {
-    "name": "pauloamgomes/CockpitCMS-ImageOptimizer",
-    "type": "project",
+    "name": "pauloamgomes/cockpitcms-imageoptimizer",
     "description": "Simple Cockpit CMS addon that integrates with Spatie image optimization library.",
     "keywords": ["cms", "headless", "api", "cockpit", "images", "media"],
     "homepage": "https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer",
     "license": "MIT",
+    "type": "cockpit-module",
     "authors": [
         {
             "name": "Paulo Gomes",
@@ -13,6 +13,14 @@
         }
     ],
     "require": {
-        "spatie/image-optimizer": "^1.2"
+        "php": ">= 7.3",
+        "spatie/image-optimizer": "^1.2",
+        "composer/installers": "^1.10"
+    },
+    "suggest": {
+        "aheinze/cockpit": "Please install Cockpit before installing this addon"
+    },
+    "extra": {
+        "installer-name": "ImageOptimizer"
     }
 }
